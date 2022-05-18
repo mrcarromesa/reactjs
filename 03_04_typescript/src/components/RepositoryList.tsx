@@ -3,17 +3,16 @@ import { RepositoryItem } from "./RepositoryItem";
 
 import '../styles/repositories.scss';
 
-// const repositories = [
-//   {
-//     id: "1",
-//     name: "Repository 1",
-//     html_url: " ",
-//   }
-// ]
+
+type Repository = {
+    name: string;
+    description: string;
+    html_url: string;
+}
 
 export const RepositoryList = () => {
 
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState<Repository[]>([]);
 
   useEffect(() => {
     

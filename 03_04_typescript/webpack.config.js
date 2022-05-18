@@ -7,13 +7,13 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
   devtool: 'eval-source-map', // <- para debugar o bundle
-  entry: path.resolve(__dirname, 'src', 'index.jsx'), // <- arquivo inicial da aplciação
+  entry: path.resolve(__dirname, 'src', 'index.tsx'), // <- arquivo inicial da aplciação
   output: {
     path: path.resolve(__dirname, 'dist'), // <- pasta onde será gerado o arquivo
     filename: 'bundle.js', // <- nome do arquivo
   },
   resolve: {
-    extensions: ['.js', '.jsx'], // <- extensões que serão utilizadas
+    extensions: ['.js', '.jsx', '.ts', '.tsx'], // <- extensões que serão utilizadas
   },
   devServer:{ // <- precisa do webpack-dev-server instalado
     static: { directory: path.resolve(__dirname, 'dist'),}, // <- pasta onde será gerado o arquivo
@@ -30,7 +30,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/, // <- extensões para aplicar regra
+        test: /\.(j|t)sx?$/, // <- extensões para aplicar regra
         exclude: /node_modules/, // <- pasta que não será aplicada a regra
         use: [
           {
