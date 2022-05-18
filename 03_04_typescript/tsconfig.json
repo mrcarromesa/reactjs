@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {                                
+    "lib": ["dom", "dom.iterable", "esnext"], // <== Adicionar isso, isso basicamente adiciona os tipos referente a dom de elementos como HTMLINPUTELEMENT, HTMLBUTTONELEMENT, etc. 
+    "allowJs": true, // Permite ter arquivo js e ts, util para quando se faz transição de js para ts
+    "allowSyntheticDefaultImports": true,  
+    "resolveJsonModule": true, // Adiciona a possibilidade de importar arquivos json     
+    "isolatedModules": true,                               
+    "jsx": "react-jsx", // Entender que estamos utilizando o jsx do react                               
+    "moduleResolution": "node",                       
+    "noEmit": true,  // Caso realizar o build do codigo ele não irá emitir o codigo                                 
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": true,            
+    "strict": true, // Entrar no modo strict do js é um modo de lidar com erros dentro do js                                
+    "skipLibCheck": true                                 
+  },
+  // Onde o código da aplicação estará
+  "include": [
+    "src"
+  ]
+}
