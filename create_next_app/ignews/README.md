@@ -401,6 +401,8 @@ yarn add faunadb
 - Para tal vamos utilizar o de signIn para salavar a informação no banco de dados
 
 
+- Um exemplo de utilização em `src/pages/api/auth/[...nextauth].ts`
+
 ---
 
 ### Envs no Next
@@ -557,3 +559,62 @@ import { useMemo, cloneElement } from 'react';
 ```
 
 E passamos nas props, as propriedades que queremos adicionar
+
+---
+
+### Revalidate
+
+- Quando utilizamos o `getStaticProps` podemos informar de quanto em quanto tempo queremos que seja renovado o conteúdo estático,
+- Para tal dentro dessa função `getStaticProps` retornamos a opção `revalidate` passando o valor em segundos que será o tempo que será mantido a página estática até a próxima atualização:
+
+```js
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  
+  // ... MORE
+
+  return {
+    props: {
+      myObj,
+    },
+    revalidate: 60 * 30, // 30 minutos
+  }
+
+}
+```
+
+---
+
+## getStaticPaths
+
+- Ele retorna quais caminhos queremos gerar de forma estática no momento da build do projeto.
+- Também podemos utilizar para gerar as páginas estáticas no momento que o usuário acessa a página, ou seja a cada primeiro acesso será criada a página estática e então nos próximos acessos a partir daí ele utiliza a página estática;
+
+- Utilizamos ela para página que são do nome [prop].tsx
+- As que são página normais como `index.tsx`, `post.tsx` por ser uma página só o next gera de forma estática
+
+- Exemplo uma página que é `[slug].tsx`:
+
+```tsx
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{
+      params: {
+        // slug é igual ao nome que demos ao arquivo [slug].tsx
+        slug: 'caminho-ou-id-da-pagina' // irá tornar estatico a página http://localhost:3000/posts/preview/caminho-ou-id-da-pagina
+      }
+    }],
+    fallback: 'blocking',
+  }
+}
+```
+
+### fallback
+
+- Tem 3 opções: true, false e blocking
+
+- true: quando o conteúdo não foi carregado de forma estática ainda ele irá carregar o layout da página e realizar a busca do conteúdo (chamada de api, etc...) direto no browser, a desvatagem é que ele pode se torarn um layout shift.
+- false: retorna 404 quando o conteúdo não existe de forma estática
+- blocking: diferente do true, ele gera a página no server side rendering e então exibe em tela.
+
+- O blocking utilizamos para quando podem surgir novos caminhos/páginas no futuro
+- false utilizamos quando o que é para ser exibido é apenas o que está dentro do paths, e o que for além disso retorna 404

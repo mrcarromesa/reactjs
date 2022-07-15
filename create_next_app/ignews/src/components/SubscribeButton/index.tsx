@@ -1,4 +1,5 @@
 import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { api } from '../../services/api';
 import { getStripeJS } from '../../services/stripe-js';
@@ -10,7 +11,8 @@ interface SubscribeButtonProps {
 
 const SubscribeButton: React.FC<SubscribeButtonProps> = ({ priceId }) => {
 
-  const { status } = useSession();
+  const { status, data } = useSession();
+  const router = useRouter();
 
   const handleSubscribe = useCallback(async () => {
     console.log(status);
@@ -19,6 +21,11 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({ priceId }) => {
       return;
     }
     console.log('status',status)
+
+    if (data?.activeSubscription) {
+      router.push('/posts');
+      return;
+    }
 
     try {
       const { data } = await api.post(`/subscribe`);
