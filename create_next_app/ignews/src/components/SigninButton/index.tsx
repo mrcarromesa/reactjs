@@ -6,9 +6,8 @@ import styles from './styles.module.scss';
 
 const SigninButton: React.FC = () => {
 
-  const { data, status } = useSession();
-  console.log(data);
-  console.log(status);
+  const { data: dataSession, status } = useSession();
+  const data = dataSession as any;
   const isUserLoggedIn = status === 'authenticated';
 
   return isUserLoggedIn ? (
@@ -18,7 +17,7 @@ const SigninButton: React.FC = () => {
       onClick={() => signOut()}
     >
       <FaGithub color="#04d361" />
-      {data.user.name}
+      {data?.user?.name}
       <FiX color="#737380" className={styles.closeIcon} />
     </button>
   ) : (

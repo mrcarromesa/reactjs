@@ -7,7 +7,7 @@ import { RichText } from "prismic-dom";
 import { useEffect } from "react";
 import { getPrismicClient } from "../../../services/prismic";
 
-import styles from '../../post.module.scss';
+import styles from '../post.module.scss';
 
 interface PostPreviewProps {
   post: {
@@ -66,9 +66,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const { slug } = params;
 
-  const prismic = getPrismicClient()
+  const prismic = getPrismicClient();
 
-  const response = await prismic.getByUID('publication', String(slug), {});
+  const response = await prismic.getByUID('pu',String(slug), {});
+
 
   const post = {
     slug,
