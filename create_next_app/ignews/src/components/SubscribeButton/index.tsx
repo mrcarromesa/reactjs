@@ -5,11 +5,7 @@ import { api } from '../../services/api';
 import { getStripeJS } from '../../services/stripe-js';
 import styles from './styles.module.scss';
 
-interface SubscribeButtonProps {
-  priceId: string;
-}
-
-const SubscribeButton: React.FC<SubscribeButtonProps> = ({ priceId }) => {
+const SubscribeButton: React.FC = () => {
 
   const { status, data } = useSession();
   const router = useRouter();
@@ -17,7 +13,8 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({ priceId }) => {
   const handleSubscribe = useCallback(async () => {
     console.log(status);
     if (String(status) !== 'authenticated') {
-      // signIn('github');
+      // comentar?
+      signIn('github');
       return;
     }
     console.log('status',status)

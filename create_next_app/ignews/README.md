@@ -618,3 +618,59 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 - O blocking utilizamos para quando podem surgir novos caminhos/páginas no futuro
 - false utilizamos quando o que é para ser exibido é apenas o que está dentro do paths, e o que for além disso retorna 404
+
+
+---
+
+# Testes
+
+- Para iniciar os testes instalar algumas dependencias:
+
+```shell
+yarn add jest jest-dom @testing-library/jest-dom @testing-library/dom @testing-library/react babel-jest -D
+```
+
+```shell
+yarn add -D jest-environment-jsdom
+```
+
+
+- Criar arquivo de configuração do `jest`: `jest.config.js`
+
+- Criar o arquivo `src/tests/setupTests.ts` adicionamos o seguinte:
+
+```ts
+import '@testing-library/jest-dom/extend-expect'
+```
+
+- Com isso podemos simular algumas funcionalidades do browser através do jest
+
+- Também criar o arquivo `babel.config.js`
+
+## Jest styles
+
+- Para não dar erro em arquivos que utiliza estilização sass, o recomendado é utilizar a lib:
+
+```shell
+yarn add identity-obj-proxy -D
+```
+
+- E no arquivo `jest.config.js` adicionar o seguinte:
+
+```js
+moduleNameMapper: {
+  "\\.(scss|css|sass)$": "identity-obj-proxy"
+}
+```
+
+- Instalar a lib `ts-jest` para trabalhar com a questão da tipagem das funções dentro do jest:
+
+```shell
+yarn add -D ts-jest
+```
+
+---
+
+### Testando páginas
+
+- Para testar páginas no caso do next para não conflitar com o sistemas de páginas do próprio next o ideal é criar em uma pasta separada normalmente dentro de `src/tests/pages/Home.spec.tsx`
